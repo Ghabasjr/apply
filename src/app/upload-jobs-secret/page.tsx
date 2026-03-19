@@ -1,9 +1,16 @@
 import { addPost } from '../actions';
 import styles from './admin.module.css';
-import posts from '../../../data/posts.json';
+import { supabase } from '../../lib/supabase';
 import DeleteButton from '../../components/DeleteButton';
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const { data: posts } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  const allPosts = posts || [];
+
   return (
     <div className={styles.adminContainer}>
       <div className={styles.adminWrapper}>
@@ -14,10 +21,10 @@ export default function AdminPage() {
           <p>Remove outdated, closed, or expired opportunities from the site.</p>
 
           <div className={styles.postList}>
-            {posts.length === 0 && (
+            {allPosts.length === 0 && (
               <p className={styles.empty}>No listings to manage.</p>
             )}
-            {posts.map((post) => (
+            {allPosts.map((post) => (
               <div key={post.id} className={styles.postRow}>
                 <div className={styles.postMeta}>
                   <span className={styles.postCategory}>{post.category}</span>

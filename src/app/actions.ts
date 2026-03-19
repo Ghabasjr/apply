@@ -1,7 +1,6 @@
 'use server';
 
-import fs from 'fs';
-import path from 'path';
+import { supabase } from '../lib/supabase';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -13,33 +12,25 @@ export async function addPost(formData: FormData) {
     date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
     excerpt: formData.get('excerpt') as string,
     content: formData.get('content') as string,
-    imageUrl: formData.get('imageUrl') as string || '',
-    applyUrl: formData.get('applyUrl') as string || ''
+    image_url: formData.get('imageUrl') as string || '',
+    apply_url: formData.get('applyUrl') as string || '',
   };
 
-  const filePath = path.join(process.cwd(), 'data', 'posts.json');
-  const fileData = fs.readFileSync(filePath, 'utf8');
-  const posts = JSON.parse(fileData);
-  
-  posts.unshift(newPost); // Add to beginning
-  
-  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2));
-  
-  // Revalidate homepage to show new posts, then redirect back to home
+  const { error } = await supabase.from('posts').insert([newPost]);
+  if (error) throw new Error(error.message);
+
   revalidatePath('/');
+  revalidatePath('/jobs');
+  revalidatePath('/internships');
+  revalidatePath('/scholarships');
   redirect('/');
 }
 
 export async function deletePost(formData: FormData) {
   const id = formData.get('id') as string;
 
-  const filePath = path.join(process.cwd(), 'data', 'posts.json');
-  const fileData = fs.readFileSync(filePath, 'utf8');
-  const posts = JSON.parse(fileData);
-
-  const updated = posts.filter((p: { id: string }) => p.id !== id);
-
-  fs.writeFileSync(filePath, JSON.stringify(updated, null, 2));
+  const { error } = await supabase.from('posts').delete().eq('id', id);
+  if (error) throw new Error(error.message);
 
   revalidatePath('/');
   revalidatePath('/jobs');

@@ -2,13 +2,20 @@ import styles from './page.module.css';
 import JobCard from '../components/JobCard';
 import Sidebar from '../components/Sidebar';
 import AdPlaceholder from '../components/AdPlaceholder';
-import posts from '../../data/posts.json';
+import { supabase } from '../lib/supabase';
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const resolvedSearchParams = await searchParams;
   const searchQuery = resolvedSearchParams.q || '';
-  
-  const filteredPosts = posts.filter(post => {
+
+  const { data: posts } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  const allPosts = posts || [];
+
+  const filteredPosts = allPosts.filter(post => {
     if (!searchQuery) return true;
     const s = searchQuery.toLowerCase();
     return (
@@ -60,13 +67,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
                     category={post.category}
                     date={post.date}
                     excerpt={post.excerpt}
-                    imageUrl={post.imageUrl}
+                    imageUrl={post.image_url}
                   />
                 ))
               ) : (
                 <div className={styles.noResults}>
                   <h3>No opportunities found</h3>
-                  <p>We couldn't find any listings matching "{searchQuery}". Try searching for something else or browse our categories.</p>
+                  <p>We couldn&apos;t find any listings matching &quot;{searchQuery}&quot;. Try searching for something else or browse our categories.</p>
                 </div>
               )}
             </div>

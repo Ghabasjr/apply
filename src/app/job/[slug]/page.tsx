@@ -3,13 +3,18 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import Sidebar from '../../../components/Sidebar';
 import AdPlaceholder from '../../../components/AdPlaceholder';
-import posts from '../../../../data/posts.json';
+import { supabase } from '../../../lib/supabase';
 import styles from './job.module.css';
 
 export default async function JobDetail({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
-  const post = posts.find((p) => p.id === slug);
+
+  const { data: post } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('id', slug)
+    .single();
 
   if (!post) {
     notFound();
@@ -35,7 +40,7 @@ export default async function JobDetail({ params }: { params: Promise<{ slug: st
             
             <div 
               className={styles.featuredImage}
-              style={{ backgroundImage: `url(${post.imageUrl || 'https://via.placeholder.com/800x400?text=Apply.ng'})` }}
+              style={{ backgroundImage: `url(${post.image_url || 'https://via.placeholder.com/800x400?text=Apply.ng'})` }}
             ></div>
 
             <AdPlaceholder height="150px" />
@@ -44,8 +49,7 @@ export default async function JobDetail({ params }: { params: Promise<{ slug: st
               <p className={styles.excerpt}>{post.excerpt}</p>
               
               <div className={styles.bodyContent}>
-                {/* For real apps we would parse markdown or HTML. Since this is dummy text, we render it directly */}
-                {post.content.split('\n').map((paragraph, index) => (
+                {post.content.split('\n').map((paragraph: string, index: number) => (
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
@@ -54,12 +58,12 @@ export default async function JobDetail({ params }: { params: Promise<{ slug: st
                 <div className={styles.applyInfo}>
                   <h3>How to Apply</h3>
                   <p>To apply for this {post.category.toLowerCase()}, follow the link below:</p>
-                  <a href={post.applyUrl} target="_blank" rel="noopener noreferrer" className={styles.applyLink}>
-                    {post.applyUrl}
+                  <a href={post.apply_url} target="_blank" rel="noopener noreferrer" className={styles.applyLink}>
+                    {post.apply_url}
                   </a>
                 </div>
                 <div className={styles.applyBtnWrap}>
-                  <a href={post.applyUrl} target="_blank" rel="noopener noreferrer" className={styles.applyBtn}>
+                  <a href={post.apply_url} target="_blank" rel="noopener noreferrer" className={styles.applyBtn}>
                     Apply Here
                   </a>
                 </div>

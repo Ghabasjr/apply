@@ -2,10 +2,16 @@ import styles from '../page.module.css';
 import JobCard from '../../components/JobCard';
 import Sidebar from '../../components/Sidebar';
 import AdPlaceholder from '../../components/AdPlaceholder';
-import posts from '../../../data/posts.json';
+import { supabase } from '../../lib/supabase';
 
-export default function InternshipsPage() {
-  const filteredPosts = posts.filter(post => post.category === 'Internship');
+export default async function InternshipsPage() {
+  const { data: posts } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('category', 'Internship')
+    .order('created_at', { ascending: false });
+
+  const filteredPosts = posts || [];
 
   return (
     <div className={styles.page}>
@@ -18,7 +24,6 @@ export default function InternshipsPage() {
 
       <div className={styles.container}>
         <div className={styles.mainLayout}>
-          
           <div className={styles.mainContent}>
             <div className={styles.grid}>
               {filteredPosts.length > 0 ? (
@@ -30,22 +35,19 @@ export default function InternshipsPage() {
                     category={post.category}
                     date={post.date}
                     excerpt={post.excerpt}
-                    imageUrl={post.imageUrl}
+                    imageUrl={post.image_url}
                   />
                 ))
               ) : (
                 <p className={styles.noResults}>No internship opportunities found at the moment. Check back later!</p>
               )}
             </div>
-            
             <AdPlaceholder height="150px" />
           </div>
-
           <div className={styles.sidebarWrap}>
             <Sidebar />
             <AdPlaceholder height="600px" />
           </div>
-
         </div>
       </div>
     </div>
