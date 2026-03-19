@@ -4,7 +4,20 @@ import Sidebar from '../components/Sidebar';
 import AdPlaceholder from '../components/AdPlaceholder';
 import posts from '../../data/posts.json';
 
-export default function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const resolvedSearchParams = await searchParams;
+  const searchQuery = resolvedSearchParams.q || '';
+  
+  const filteredPosts = posts.filter(post => {
+    if (!searchQuery) return true;
+    const s = searchQuery.toLowerCase();
+    return (
+      post.title.toLowerCase().includes(s) ||
+      post.category.toLowerCase().includes(s) ||
+      post.excerpt.toLowerCase().includes(s)
+    );
+  });
+
   return (
     <div className={styles.page}>
       {/* Hero Section */}
@@ -12,11 +25,17 @@ export default function Home() {
         <div className={styles.heroContainer}>
           <div className={styles.heroContent}>
             <h1>Find Your Dream Job, Internship, or Scholarship</h1>
-            <p>We connect ambitious talents with life-changing opportunities across Africa and beyond. Explore thousands of listings daily.</p>
-            <div className={styles.searchBar}>
-              <input type="text" placeholder="Search for opportunities..." />
-              <button>Search</button>
-            </div>
+            <p>Moving careers or starting one? We connect ambitious talent with life-changing opportunities across Africa's fastest-growing sectors.</p>
+            
+            <form action="/" method="GET" className={styles.searchBar}>
+              <input 
+                type="text" 
+                name="q" 
+                placeholder="Search by title, company, or category..." 
+                defaultValue={searchQuery}
+              />
+              <button type="submit">Search</button>
+            </form>
           </div>
         </div>
       </section>
@@ -28,26 +47,35 @@ export default function Home() {
           {/* Left Column: Listings */}
           <div className={styles.mainContent}>
             <div className={styles.sectionHeader}>
-              <h2>Latest Opportunities</h2>
+              <h2>{searchQuery ? `Search Results for "${searchQuery}"` : 'Latest Opportunities'}</h2>
             </div>
             
             <div className={styles.grid}>
-              {posts.map((post) => (
-                <JobCard
-                  key={post.id}
-                  id={post.id}
-                  title={post.title}
-                  category={post.category}
-                  date={post.date}
-                  excerpt={post.excerpt}
-                  imageUrl={post.imageUrl}
-                />
-              ))}
+              {filteredPosts.length > 0 ? (
+                filteredPosts.map((post) => (
+                  <JobCard
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    category={post.category}
+                    date={post.date}
+                    excerpt={post.excerpt}
+                    imageUrl={post.imageUrl}
+                  />
+                ))
+              ) : (
+                <div className={styles.noResults}>
+                  <h3>No opportunities found</h3>
+                  <p>We couldn't find any listings matching "{searchQuery}". Try searching for something else or browse our categories.</p>
+                </div>
+              )}
             </div>
             
-            <AdPlaceholder height="150px" />
+            {filteredPosts.length > 0 && (
+              <button className={styles.loadMore}>Load More Listings</button>
+            )}
             
-            <button className={styles.loadMore}>Load More Listings</button>
+            <AdPlaceholder height="150px" />
           </div>
 
           {/* Right Column: Sidebar */}

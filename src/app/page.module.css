@@ -168,3 +168,43 @@
     top: calc(var(--header-height) + 2rem);
   }
 }
+
+/* Category Page Styles */
+.categoryHero {
+  background-color: var(--surface);
+  border-bottom: 2px solid var(--border-color);
+  padding: 4rem 0;
+  margin-bottom: 3rem;
+}
+
+.categoryHero .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryTitle {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--dark-blue);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.categorySubtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5rem 2rem;
+  background-color: var(--surface);
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
