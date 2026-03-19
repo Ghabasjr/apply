@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1773936457852",
+    "title": "Test Job Post",
+    "category": "Job",
+    "date": "March 19, 2026",
+    "excerpt": "A brief description of the job.",
+    "content": "This is a test job post for verification.",
+    "imageUrl": "",
+    "applyUrl": "https://example.com/apply-here"
+  },
+  {
+    "id": "1773932852914",
+    "title": "Senior Frontend Developer",
+    "category": "Job",
+    "date": "March 19, 2026",
+    "excerpt": "This is a sample job description for testing the new 'Applying Link' feature.",
+    "content": "Full content here for testing. It should show the green button at the end.",
+    "imageUrl": "",
+    "applyUrl": "https://example.com/apply-now"
+  },
+  {
+    "id": "1773925095585",
+    "title": "Graphic designer",
+    "category": "Job",
+    "date": "March 19, 2026",
+    "excerpt": "Just a job",
+    "content": "a graphic design job for graphic designer professinals",
+    "imageUrl": "",
+    "applyUrl": "https://example.com/apply-graphic-designer"
+  },
+  {
+    "id": "1",
+    "title": "Google Africa Developer Scholarship 2026",
+    "category": "Scholarship",
+    "date": "March 15, 2026",
+    "excerpt": "Apply for the Google Africa Developer Scholarship to enhance your skills in Android, Web, or Google Cloud.",
+    "content": "This is the full description for the Google Africa Developer Scholarship. It is a fully funded program...",
+    "imageUrl": "",
+    "applyUrl": "https://example.com/apply-google-scholarship"
+  },
+  {
+    "id": "2",
+    "title": "Software Engineering Intern - Microsoft Lagos",
+    "category": "Internship",
+    "date": "March 18, 2026",
+    "excerpt": "Microsoft is hiring Software Engineering Interns for its Lagos office. Gain hands-on experience building scalable applications.",
+    "content": "Microsoft is hiring Software Engineering Interns for its Lagos office. Requirements: Currently enrolled in a Bachelor's program in Computer Science...",
+    "imageUrl": "",
+    "applyUrl": "https://example.com/apply-microsoft-intern"
+  },
+  {
+    "id": "3",
+    "title": "Senior Product Designer - Remote",
+    "category": "Job",
+    "date": "March 19, 2026",
+    "excerpt": "Join a fast-growing startup as a Senior Product Designer. 100% remote work available for top candidates.",
+    "content": "Join a fast-growing startup as a Senior Product Designer. You will be responsible for end-to-end product design from research to high-fidelity prototyping...",
+    "imageUrl": "",
+    "applyUrl": "https://example.com/apply-product-designer"
+  }
+]

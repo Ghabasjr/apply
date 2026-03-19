@@ -1,0 +1,123 @@
+.header {
+  background-color: var(--dark-blue);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.logoMark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logoShape {
+  width: 24px;
+  height: 8px;
+  background-color: var(--primary-red);
+  border-radius: 4px 0 0 4px;
+}
+
+.logoShapeTwo {
+  width: 16px;
+  height: 8px;
+  background-color: #3b82f6; /* A nice contrasting blue */
+  border-radius: 0 4px 4px 0;
+  align-self: flex-end;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.highlight {
+  color: var(--primary-red);
+}
+
+.nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navList a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  transition: color 0.2s ease;
+}
+
+.navList a:hover {
+  color: #ffffff;
+}
+
+.postBtn {
+  background-color: var(--primary-red);
+  color: #ffffff !important;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.1s ease !important;
+}
+
+.postBtn:hover {
+  background-color: var(--primary-red-hover);
+  transform: translateY(-1px);
+}
+
+.mobileMenuBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .mobileMenuBtn {
+    display: none;
+  }
+}
+
+.mobileMenuBtn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}

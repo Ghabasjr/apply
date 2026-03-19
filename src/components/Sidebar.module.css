@@ -1,0 +1,83 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.widget {
+  background-color: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.widgetTitle {
+  font-size: 1.25rem;
+  color: var(--dark-blue);
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary-red);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.postList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.postItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.postType {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary-red);
+  text-transform: uppercase;
+}
+
+.postLink {
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.4;
+  transition: color 0.1s ease;
+}
+
+.postLink:hover {
+  color: var(--primary-red);
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.categoryList li a {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.categoryList li:last-child a {
+  border-bottom: none;
+}
+
+.categoryList li a:hover {
+  color: var(--primary-red);
+}
+
+.categoryList li a span {
+  background-color: #f1f5f9;
+  padding: 0.1rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: var(--text-light);
+}

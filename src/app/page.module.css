@@ -1,0 +1,170 @@
+.page {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.hero {
+  background-color: var(--dark-blue);
+  color: white;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  border-bottom: 4px solid var(--primary-red);
+}
+
+.heroContainer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.searchBar {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.searchBar input {
+  flex-grow: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.searchBar button {
+  background-color: var(--primary-red);
+  color: white;
+  border: none;
+  padding: 0 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.searchBar button:hover {
+  background-color: var(--primary-red-hover);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.mainLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .mainLayout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.mainContent {
+  flex: 1;
+}
+
+.sectionHeader {
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+.sectionHeader h2 {
+  font-size: 1.75rem;
+  color: var(--dark-blue);
+  display: inline-block;
+  position: relative;
+}
+
+.sectionHeader h2::after {
+  content: "";
+  position: absolute;
+  bottom: -1.1rem;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-color: var(--primary-red);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.loadMore {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background-color: transparent;
+  border: 2px solid var(--primary-red);
+  color: var(--primary-red);
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: all 0.2s ease;
+}
+
+.loadMore:hover {
+  background-color: var(--primary-red);
+  color: white;
+}
+
+/* Sidebar Wrapper styles */
+.sidebarWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .sidebarWrap {
+    width: 340px;
+    flex-shrink: 0;
+  }
+}
+
+/* Sticky behavior for the second ad in sidebar */
+@media (min-width: 1024px) {
+  .stickyAd {
+    position: sticky;
+    top: calc(var(--header-height) + 2rem);
+  }
+}
