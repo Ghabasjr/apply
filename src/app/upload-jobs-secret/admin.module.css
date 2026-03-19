@@ -2,15 +2,19 @@
   padding: 4rem 1.5rem;
   background-color: #f8fafc;
   min-height: calc(100vh - var(--header-height));
+}
+
+.adminWrapper {
+  max-width: 800px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 .adminCard {
   background-color: white;
   width: 100%;
-  max-width: 600px;
   padding: 3rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -86,4 +90,84 @@
 .submitBtn:hover {
   background-color: var(--primary-red-hover);
   transform: translateY(-1px);
+}
+
+/* ── Manage Posts ── */
+.postList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.postRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: background-color 0.15s;
+}
+
+.postRow:hover {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.postMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.postCategory {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-red);
+}
+
+.postTitle {
+  font-weight: 600;
+  color: var(--dark-blue);
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.postDate {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.deleteBtn {
+  flex-shrink: 0;
+  background-color: white;
+  color: #dc2626;
+  border: 1.5px solid #fca5a5;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
 }

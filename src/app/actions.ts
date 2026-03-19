@@ -29,3 +29,21 @@ export async function addPost(formData: FormData) {
   revalidatePath('/');
   redirect('/');
 }
+
+export async function deletePost(formData: FormData) {
+  const id = formData.get('id') as string;
+
+  const filePath = path.join(process.cwd(), 'data', 'posts.json');
+  const fileData = fs.readFileSync(filePath, 'utf8');
+  const posts = JSON.parse(fileData);
+
+  const updated = posts.filter((p: { id: string }) => p.id !== id);
+
+  fs.writeFileSync(filePath, JSON.stringify(updated, null, 2));
+
+  revalidatePath('/');
+  revalidatePath('/jobs');
+  revalidatePath('/internships');
+  revalidatePath('/scholarships');
+  redirect('/upload-jobs-secret');
+}
