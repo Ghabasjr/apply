@@ -1,15 +1,18 @@
 import { addPost } from '../actions';
 import styles from './admin.module.css';
-import { supabase } from '../../lib/supabase';
+import fs from 'fs/promises';
+import path from 'path';
 import DeleteButton from '../../components/DeleteButton';
 
 export default async function AdminPage() {
-  const { data: posts } = await supabase
-    .from('posts')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  const allPosts = posts || [];
+  let allPosts: any[] = [];
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'posts.json');
+    const fileData = await fs.readFile(filePath, 'utf8');
+    allPosts = JSON.parse(fileData);
+  } catch (error) {
+    console.error("Error reading posts.json", error);
+  }
 
   return (
     <div className={styles.adminContainer}>

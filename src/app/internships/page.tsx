@@ -2,16 +2,19 @@ import styles from '../page.module.css';
 import JobCard from '../../components/JobCard';
 import Sidebar from '../../components/Sidebar';
 import AdPlaceholder from '../../components/AdPlaceholder';
-import { supabase } from '../../lib/supabase';
+import fs from 'fs/promises';
+import path from 'path';
 
 export default async function InternshipsPage() {
-  const { data: posts } = await supabase
-    .from('posts')
-    .select('*')
-    .eq('category', 'Internship')
-    .order('created_at', { ascending: false });
-
-  const filteredPosts = posts || [];
+  let filteredPosts: any[] = [];
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'posts.json');
+    const fileData = await fs.readFile(filePath, 'utf8');
+    const allPosts = JSON.parse(fileData);
+    filteredPosts = allPosts.filter((p: any) => p.category === 'Internship');
+  } catch (error) {
+    console.error("Error reading posts.json", error);
+  }
 
   return (
     <div className={styles.page}>

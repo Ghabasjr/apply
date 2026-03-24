@@ -2,18 +2,21 @@ import styles from './page.module.css';
 import JobCard from '../components/JobCard';
 import Sidebar from '../components/Sidebar';
 import AdPlaceholder from '../components/AdPlaceholder';
-import { supabase } from '../lib/supabase';
+import fs from 'fs/promises';
+import path from 'path';
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const resolvedSearchParams = await searchParams;
   const searchQuery = resolvedSearchParams.q || '';
 
-  const { data: posts } = await supabase
-    .from('posts')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  const allPosts = posts || [];
+  let allPosts: any[] = [];
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'posts.json');
+    const fileData = await fs.readFile(filePath, 'utf8');
+    allPosts = JSON.parse(fileData);
+  } catch (error) {
+    console.error("Error reading posts.json", error);
+  }
 
   const filteredPosts = allPosts.filter(post => {
     if (!searchQuery) return true;
@@ -33,12 +36,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
           <div className={styles.heroContent}>
             <h1>Find Your Dream Job, Internship, or Scholarship</h1>
             <p>Moving careers or starting one? We connect ambitious talent with life-changing opportunities across Africa's fastest-growing sectors.</p>
-            
+
             <form action="/" method="GET" className={styles.searchBar}>
-              <input 
-                type="text" 
-                name="q" 
-                placeholder="Search by title, company, or category..." 
+              <input
+                type="text"
+                name="q"
+                placeholder="Search by title, company, or category..."
                 defaultValue={searchQuery}
               />
               <button type="submit">Search</button>
@@ -50,13 +53,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
       {/* Main Content Layout */}
       <div className={styles.container}>
         <div className={styles.mainLayout}>
-          
+
           {/* Left Column: Listings */}
           <div className={styles.mainContent}>
             <div className={styles.sectionHeader}>
               <h2>{searchQuery ? `Search Results for "${searchQuery}"` : 'Latest Opportunities'}</h2>
             </div>
-            
+
             <div className={styles.grid}>
               {filteredPosts.length > 0 ? (
                 filteredPosts.map((post) => (
@@ -77,11 +80,11 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
                 </div>
               )}
             </div>
-            
+
             {filteredPosts.length > 0 && (
               <button className={styles.loadMore}>Load More Listings</button>
             )}
-            
+
             <AdPlaceholder height="150px" />
           </div>
 

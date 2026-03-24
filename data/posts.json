@@ -18,15 +18,5 @@
     "content": "Microsoft is hiring Software Engineering Interns for its Lagos office. Requirements: Currently enrolled in a Bachelor's program in Computer Science...",
     "imageUrl": "",
     "applyUrl": "https://example.com/apply-microsoft-intern"
-  },
-  {
-    "id": "3",
-    "title": "Senior Product Designer - Remote",
-    "category": "Job",
-    "date": "March 19, 2026",
-    "excerpt": "Join a fast-growing startup as a Senior Product Designer. 100% remote work available for top candidates.",
-    "content": "Join a fast-growing startup as a Senior Product Designer. You will be responsible for end-to-end product design from research to high-fidelity prototyping...",
-    "imageUrl": "",
-    "applyUrl": "https://example.com/apply-product-designer"
   }
 ]

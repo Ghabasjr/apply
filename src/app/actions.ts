@@ -1,8 +1,11 @@
 'use server';
 
-import { supabase } from '../lib/supabase';
+import fs from 'fs/promises';
+import path from 'path';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+
+const postsFilePath = path.join(process.cwd(), 'data', 'posts.json');
 
 export async function addPost(formData: FormData) {
   const newPost = {
@@ -16,8 +19,14 @@ export async function addPost(formData: FormData) {
     apply_url: formData.get('applyUrl') as string || '',
   };
 
-  const { error } = await supabase.from('posts').insert([newPost]);
-  if (error) throw new Error(error.message);
+  try {
+    const fileData = await fs.readFile(postsFilePath, 'utf8');
+    const posts = JSON.parse(fileData);
+    posts.unshift(newPost);
+    await fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2));
+  } catch (error) {
+    throw new Error('Failed to save post to file.');
+  }
 
   revalidatePath('/');
   revalidatePath('/jobs');
@@ -29,8 +38,14 @@ export async function addPost(formData: FormData) {
 export async function deletePost(formData: FormData) {
   const id = formData.get('id') as string;
 
-  const { error } = await supabase.from('posts').delete().eq('id', id);
-  if (error) throw new Error(error.message);
+  try {
+    const fileData = await fs.readFile(postsFilePath, 'utf8');
+    let posts = JSON.parse(fileData);
+    posts = posts.filter((post: any) => post.id !== id);
+    await fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2));
+  } catch (error) {
+    throw new Error('Failed to delete post from file.');
+  }
 
   revalidatePath('/');
   revalidatePath('/jobs');

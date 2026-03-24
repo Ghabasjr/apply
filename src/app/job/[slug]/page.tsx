@@ -3,18 +3,23 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import Sidebar from '../../../components/Sidebar';
 import AdPlaceholder from '../../../components/AdPlaceholder';
-import { supabase } from '../../../lib/supabase';
+import fs from 'fs/promises';
+import path from 'path';
 import styles from './job.module.css';
 
 export default async function JobDetail({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
 
-  const { data: post } = await supabase
-    .from('posts')
-    .select('*')
-    .eq('id', slug)
-    .single();
+  let post: any = null;
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'posts.json');
+    const fileData = await fs.readFile(filePath, 'utf8');
+    const allPosts = JSON.parse(fileData);
+    post = allPosts.find((p: any) => p.id === slug);
+  } catch (error) {
+    console.error("Error reading posts.json", error);
+  }
 
   if (!post) {
     notFound();
